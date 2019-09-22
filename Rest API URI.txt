@@ -1,0 +1,8 @@
+getTicketById
+http://localhost:8080/api/tickets/ticketId/1
+
+----------------------------------------------------------------------------------------------------------
+getAllBookedTickets
+http://localhost:8080/api/admin/tickets/alltickets
+
+
