@@ -1,5 +1,6 @@
 package com.infotech.book.ticket.app.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,7 @@ public class TicketBookingController {
 	private TicketBookingService ticketBookingService;
 	
 	@GetMapping(value="/tickets/ticketId/{ticketId}")
-	public Ticket getTicketById(@PathVariable("ticketId")Integer ticketId){
+	public Ticket getTicketById(@PathVariable("ticketId")Integer ticketId) throws JsonProcessingException {
 		return ticketBookingService.getTicketById(ticketId);
 	}
 	@GetMapping(value="/admin/tickets/alltickets")
