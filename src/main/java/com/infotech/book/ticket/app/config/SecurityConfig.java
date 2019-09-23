@@ -8,25 +8,32 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @EnableWebSecurity
-@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		
-		http.csrf().disable().authorizeRequests().antMatchers("/api/tickets/**")
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http.csrf().disable().authorizeRequests().antMatchers("/api/tickets/**")
+                .hasAnyRole("admin", "user")
+                .and().authorizeRequests().antMatchers("/api/admin/**")
+                .hasAnyRole("admin")
+                .and()
+                .formLogin();
+
+        //Another way of implementing this
+		/*http.csrf().disable().authorizeRequests().antMatchers("/api/tickets/**")
 				.hasAnyRole("admin","user")
 				.and()
 				.formLogin();
 		http.csrf().disable().authorizeRequests().antMatchers("/api/admin/**")
 				.hasAnyRole("admin")
 				.and()
-				.formLogin();
-	}
-	
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-		auth.inMemoryAuthentication().withUser("sean").password("{noop}pass@123").roles("user")
-				.and().withUser("martin").password("{noop}pass@123").roles("user","admin");
-	}
+				.formLogin();*/
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser("sean").password("{noop}pass@123").roles("user")
+                .and().withUser("martin").password("{noop}pass@123").roles("user", "admin");
+    }
 }

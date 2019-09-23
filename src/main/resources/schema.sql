@@ -8,3 +8,5 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `source_station` varchar(255) NOT NULL,
   PRIMARY KEY  (`ticket_id`)
 ) ;
+
+
